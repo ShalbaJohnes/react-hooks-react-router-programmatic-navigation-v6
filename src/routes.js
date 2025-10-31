@@ -1,29 +1,38 @@
-import App from './App';
-import Home from "./components/Home";
-import About from "./components/About";
-import Login from "./components/Login";
-
-
+// routes.js
 const routes = [
-    {
-        path: '/',
-        element: <App />,
+  {
+    path: "/",
+    element: <App />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/",
+        element: <Home />,
         children: [
-            {
-                path: '/',
-                element: <Home />
-            }, 
-            {
-                path: '/about',
-                element: <About />
-            },  
-            {
-                path: '/login',
-                element: <Login />
-            }, 
+          {
+            path: "profile/:id",
+            element: <UserProfile />,
+            children: [
+              {
+                path: "posts",
+                element: <UserPosts />
+              },
+              {
+                path: "friends",
+                element: <UserFriends />
+              }
+            ]
+          }
         ]
-    }
-
-]
-
-export default routes;
+      },
+      {
+        path: "/about",
+        element: <About />
+      },
+      {
+        path: "/login",
+        element: <Login />
+      }
+    ]
+  }
+];
